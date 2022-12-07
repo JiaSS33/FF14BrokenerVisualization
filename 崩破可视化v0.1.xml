@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder FFXIVJobFilterEnabled="True" FFXIVJobFilter="8589934592" Id="833405f9-061c-46f8-abcb-943d24ec11d3" Name="崩破可视化v0.1" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="执行函数" Id="82c2306d-5c98-4a01-a8a5-4976e1c0624c" RegularExpression="^.{14} StatusAdd 1A:C82:崩破:3.00:[^:]*?:(?&lt;D_play_Name&gt;[^:]*?):[^:]*?:(?&lt;D_Brokener&gt;[^:]*?):">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e ${D_Brokener}已被崩破" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" JsonEndpointExpression="http://127.0.0.1:47774/?namespace=D_Broken&amp;destroyAt=3000" JsonPayloadExpression="{&quot;type&quot;:1,&quot;radius&quot;:0.01,&quot;Donut&quot;:0.2,&quot;thicc&quot;:3.8,&quot;overlayText&quot;:&quot;斩&quot;,&quot;refActorNameIntl&quot;:{&quot;Other&quot;:&quot;${D_Brokener}&quot;},&quot;refActorRequireBuff&quot;:true,&quot;refActorBuffId&quot;:[3039,82,1302],&quot;refActorRequireBuffsInvert&quot;:true,&quot;FillStep&quot;:0.425,&quot;includeRotation&quot;:true,&quot;tether&quot;:true,&quot;Filled&quot;:true,&quot;DistanceSourceX&quot;:-0.54}" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="GenericJson">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${D_play_Name}" ExpressionTypeL="String" ExpressionR="${var:D_playerName}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="构造函数" Id="2f6db8ed-26cb-40f6-b0bf-e410498d2f1c" RegularExpression="^.{14} .*:(?&lt;DplayerName&gt;.*)的职业转换成了“(?&lt;DplayerProfession&gt;.*)”。" Description="by Jiass33">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 初始化成功，${DplayerName}当前职业:${DplayerProfession}" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetString" VariableName="D_playerName" VariableExpression="${DplayerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${DplayerProfession}" ExpressionTypeL="String" ExpressionR="武士" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
